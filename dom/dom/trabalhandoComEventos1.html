@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset='UTF-8'>
+    <title>Trabalhando com Eventos #01</title>
+    <link rel='stylesheet' href='css/estilo.css'>
+</head>
+
+<body class="conteudo exercicio">
+    <div>
+        <!-- cuando se cliquee ejecutar la funcion pasando el event como parametro -->
+        <!-- onclick="navegarEm5s(event)" // no es la forma mas interesante de hacer esto // esto se llama hardcoded -->
+        <a espera-um-pouco href="https://google.com.br" >Google</a>
+    </div>
+    <script>
+        function navegarEm5s(e) {
+            e.preventDefault()
+            console.log('Saindo em 5s.....')
+            setTimeout(()=>{
+                const link = e.target // evento.target en el caso es la a ya que cliqueamos en ella y adentro de ella se encuantra el href que queremos ejecutar
+                window.location.href = link.href // estamos cambiando el window.location.href( osea la url que se encuentra en nuestra pagina, por la url en nuestro link)
+            }, 5000) // en 5 segundo ocurrira
+        }
+
+        // const a = document.querySelector('a') 
+        // a.onclick = navegarEm5s // le estamos modificando a la a el evento onclick 
+        //el problema de esto es que mirando el html no se entiende por que pasa lo que pasa
+
+        const a = document.querySelector('[espera-um-pouco]') // de esta forma solucionamos los dos problemas ademas que le poderiamos pasar un valor a mi atributo para por ejemplo cambiar el timepo de espera
+        a.onclick = navegarEm5s 
+    </script>
+</body>

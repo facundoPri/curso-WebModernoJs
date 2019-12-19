@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset='UTF-8'>
+    <title>Modificando HTML #02</title>
+    <link rel='stylesheet' href='css/estilo.css'>
+    <script src='js/jquery.js'></script>
+</head>
+
+<body class='conteudo exercicio'>
+    <h1>Modificando HTML #02</h1>
+    <div id='div1'>1</div>
+    <div id='div2'>2</div>
+    <div id='div3'>3</div>
+    <p class='numero'>4</p>
+    <p class='numero'>5</p>
+
+    <script>
+    $('#div1').append(', 2') // seleccionamos el elemento y ponemos adentro de este otro pero despues del contenido existente
+    $('#div1').prepend('0, ') // lo mismo pero antes
+
+    $('<span>, 3</span>').appendTo('#div1')// en este caso ponemos primero el elemento que queremos agregar y despues donde lo agregamos// en este caso en necesario hacerle saber al html que es exactamente lo que queremos poner
+    $('<span>-1, </span>').prependTo('#div1') // lo mismo pero lo adicionamos antes del contenido ya existente
+
+    $('#div2').before('<p>Antes 2</p>')
+    $('#div2').after('<p>Depois 2</p>')
+
+    $('<p>Antes 3</p>').insertBefore('#div3')
+    $('<p>Depois 3</p>').insertAfter('#div3')
+
+    // $('p.numero').wrap('<div>')// lo que estariamos haciendo aca es agarrar los p con una clase llamada numero y envolviendo cada uno de los elementos seleccionados en una div
+    $('p.numero').wrapAll('<div id="div4">')//ademas le estamos pasando un id a esta nueva div// parecido al de arriba pero estamos envolviendo todos estos elementos en apenas una div
+    $('#div4').empty()// borramos todo lo que esta adentro de mi div4 
+    $('#div3, #div4').prev().remove()// seleccionamos la div3 y 4 para cada una de ellas os fijamos el elemento anterior y despues los removemos
+
+    // $('<div>Substituto</div>').replaceAll('body > p')// remplasamos todos los P andentro del body por una div que diga Substituto
+    // $('body > p').replaceWith('<div>Substituto</div>') // igual que arriba
+    $('body > p').replaceWith(function(){ // replaceWith se puede usar con una funcion callback
+        return $('<div>').html($(this).html()).append(' !!!') // en este caso creamos una div que tendra adentro el html del texto + !!!
+    })
+    </script>
+</body>

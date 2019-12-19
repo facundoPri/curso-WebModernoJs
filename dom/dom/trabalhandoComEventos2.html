@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset='UTF-8'>
+    <title>Trabalhando com Eventos #02</title>
+    <link rel='stylesheet' href='css/estilo.css'>
+</head>
+
+<body class="conteudo exercicio">
+    <div>Elemento</div>
+    <script>
+        const item = document.querySelector('div')
+        item.style.position = 'absolute'
+
+        item.onmousemove = e => {
+            const item = e.target // esta es la div
+            item.style.cursor = 'move' //cuando pasemos el mouse por arriba de la div se pondra en formato move
+            if (e.buttons) {// si no fue precionado esto esta en 0 ( osea que queda en false ) pero si es precionado se cambiara a uno y esto pasa a ser true de modo que se ejecuta lo de adentro 
+                item.style.top = `${e.clientY - (item.clientHeight / 2)}px` //hacemos esto para que la div pocicione el cursor bien en el medio de ella misma al precionada
+                item.style.left = `${e.clientX - (item.clientWidth / 2)}px`
+            }
+        }
+    </script>
+</body>

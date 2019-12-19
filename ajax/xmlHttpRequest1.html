@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset='UTF-8'>
+    <title>XMLHttpRequest #01</title>
+    <link rel='stylesheet' href='css/estilo.css'>
+</head>
+
+<body class="conteudo exercicio">
+    <h1>Estados</h1>
+
+    <script>
+        function ajax(config) { // creamos una funcion ajax que recibe un objeto que tiene todos los parametros de configuracion
+            const xhr = new XMLHttpRequest()
+            xhr.open(config.metodo, config.url, true) // le pasamos el metodo, la url y que sea true significa que sera asincrono
+
+            xhr.onload = e => {// cuando se carga la pagina se obtiene un estado y ese estado se pasa por el if
+                if(xhr.status === 200) { // si el estatus es 200 significa que fue un seccesso
+                    config.sucesso(xhr.response) //si obtenemos un sucesso se ejecuta la funcion que pasando como parametro la respuesta xhr
+                }else if (xhr.status >= 400){ // todas las respuestas menosres o igual a 400 son erroes o del servidor o del usuario
+                    config.erro({ // si se obtiene un status menor igual que 400 ejecutamos la funcion erro que pertence al objeto config, que es el objeto pasado por parametro
+                        codigo: xhr.status, // estos son los parametros pasados
+                        texto: xhr.statusText 
+                    })
+                }
+            }
+            xhr.send()// esto hace con que se envie la quesicion
+        }
+
+        //para favorecer la claridad creamos una funcion que cree una tabla para nosotros
+        function criarTabela(estados){
+                            
+            const linhas = estados.map(estado => { // creamos un nuevo array con el array objetos
+                    const tdId = document.createElement('td')
+                    tdId.innerHTML = estado.id
+
+                    const tdNome = document.createElement('td')
+                    tdNome.innerHTML = estado.nome
+
+                    const tdSigla = document.createElement('td')
+                    tdSigla.innerHTML = estado.sigla
+
+                    const tr = document.createElement('tr')
+
+                    tr.appendChild(tdId)
+                    tr.appendChild(tdNome)
+                    tr.appendChild(tdSigla)
+
+                    return tr // este es el array final
+                })
+                const tabela = document.createElement('table') // creamos una table llamada tabela
+                linhas.forEach(linha => tabela.appendChild(linha)) // incerimos uno por uno los elementos del array linhas en la tabela
+                document.body.appendChild(tabela) // ahora si metemos mi tabela en el body 
+        }
+
+        //esta parte la acrecente yo para añadir mas claridad// ya que el ajax me ṕide un objeto directamente lo creo aca y despues se lo mando
+        const configuracion = {
+            url:"dados/estados.json", // el objeto confi tiene el parametro url
+            metodo: "get", // el metodo
+            sucesso(resposta){  // y tiene la funcion de succeso
+                const estados = JSON.parse(resposta) //pasamos el json a array
+                criarTabela(estados)
+            }, 
+            erro(e){ // y la funcion de error que tambien es pasada como parametro
+                const msg = document.createTextNode(`${e.codigo}: ${e.texto}`)
+                document.body.appendChild(msg) // pasamos el msg al body
+            }
+        }
+
+        ajax(configuracion) // este es el objeto de configuracion
+    </script>
+</body>

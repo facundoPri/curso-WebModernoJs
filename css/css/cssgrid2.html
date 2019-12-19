@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>CSS Grid #02</title>
+    <style>
+        html,
+        body {
+            margin: 20px;
+            height: calc(100% - 40px);
+            background-color: lightgray;
+        }
+        
+        div {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 30px;
+            border: solid 5px dodgerblue;
+            background: #fff;
+        }
+
+        body{
+            display: grid;
+            /* se le puede poner nombres a las lineas entre elementos */
+            grid-template-columns: 
+            [inicio] 1fr 
+            [metade-1 medio-1] 1fr
+            [metade-2 medio-2] 1fr [fim];
+            grid-template-rows: repeat(3, 1fr);
+
+            grid-row-gap: 20px; 
+            grid-column-gap: 20px;
+            grid-gap: 50px 10px;
+            grid-gap: 10px 1;
+        }
+        .d1{
+            grid-column-start: medate-2;
+            grid-column-end: fim;
+            /* forma para meter el start y el end en una sola */
+            grid-column: medio-1 / fim;
+            /* y el span es lo mismo que decir una determinada cantidad despues del comiezo */
+            grid-row: 1 / span 2;
+
+            /* el grid es una forma de meter todo en apenas uno */
+            /* row-start column-start row-end column-end // orden */
+            grid-area: 1 / medio-1 / span 3 / fims;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="d1">1</div>
+    <div class="d2">2</div>
+    <div class="d3">3</div>
+</body>
+
+</html>

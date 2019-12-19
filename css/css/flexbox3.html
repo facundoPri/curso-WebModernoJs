@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>Flexbox #03</title>
+    <link rel="stylesheet" href="css/tag.css">
+    <style>
+        .flex-container {
+            display: flex;
+            flex-direction: row;
+        }
+
+        .flex-container div {
+            /* este tamanho sera en el eje determinado por mi flex-direction */
+            flex-basis: 100px;
+            /* si usamos el width cuando la diction es row, se tendra preferencia por el flex-basis */
+            width: 200px;
+        }
+
+        .flex-container div:nth-child(4) {
+            /* grow shrink basis */
+            flex: 3 6 100px;
+        }
+
+        .flex-container {
+            /* podemos veriq que el 4 va a disminuir mas que los tros */
+            width: 300px;
+            /* pero tambien va a crecer mas que los otros */
+            width: 600px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="flex-container tag nolabel">
+        <div class="tag nolabel">1</div>
+        <div class="tag nolabel">2</div>
+        <div class="tag nolabel">3</div>
+        <div class="tag nolabel">4</div>
+    </div>
+    <script src="js/tag.js"></script>
+</body>
+
+</html>

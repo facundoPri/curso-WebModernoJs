@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Selecionar Elementos #02</title>
+    <link rel="stylesheet" href="css/estilo.css">
+</head>
+<body class="conteudo exercicio">
+    <div id="primeiro">#primeiro</div>
+    <div wb-attrib>Segundo</div>
+    <div class="terceiro ultimo"><span wb-attrib>.terceiro .ultimo</span></div>
+    <script>              
+        document.querySelector('#primeiro').classList.add('destaque') // es necesario poner el # antes en el caso de un id, pero el queryselector es mucho mas flexible
+        
+        const selecionar = seletor => // creamos una simple funcion para adicionar la clase destaque
+            document.querySelectorAll(seletor).forEach(e => e.classList.add('destaque')) // queryselectorall nos da una nodelist que no es un array pero igual si tiene el foreach
+        const deselecionar = seletor =>
+        document.querySelectorAll(seletor).forEach(e => e.classList.remove('destaque'))  
+
+        selecionar('div')
+
+        deselecionar('*')
+        selecionar('.terceiro.ultimo')
+
+        deselecionar('*')
+        selecionar(':not(#primeiro)') // todos menos el primero
+        // can i use // sive para ver si determinada accion es compatible con determinada cantidad de borwsers
+
+        deselecionar('*')
+        selecionar(':nth-child(1)') // no seleciona todos los primeros elementos, en el caso la primer div del body y el primer span del tercer elemento
+
+        deselecionar('*')
+        selecionar('div:nth-of-type(1)')//primer elemento de tipo div
+
+        deselecionar('*')
+        selecionar('[wb-attrib]')
+    </script>
+</body>
+</html>

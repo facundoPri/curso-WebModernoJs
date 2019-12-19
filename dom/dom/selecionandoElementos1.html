@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Selecionar Elementos #01</title>
+    <link rel="stylesheet" href="css/estilo.css">
+</head>
+<body class="conteudo exercicio">
+    <div id="primeiro">#primeiro</div>
+    <div>Segundo</div>
+    <div class="terceiro ultimo">.terceiro .ultimo</div>
+    <script>              
+        document.getElementById('primeiro').classList.add('destaque')
+
+        const divs = document.getElementsByTagName('div')// esto crea una lista de html colections
+        Array.from(divs).forEach(e => e.classList.remove('destaque')) // de esta fomra removemos la clase destaque de todas las divs que lo tengan// primero pasamos la html colection list a un array
+
+        const divsArray = [...divs] //passamos todas las divs a un array
+        divsArray.forEach(e=> e.classList.add('destaque'))
+
+        const ultimoElemento = document.getElementsByClassName('ultimo')
+        // si en la consola usamos dir(ultimoElemento) // veremos una htmlCollectios con los elementos que en el caso tengan la clase ultimo
+        for(let e of ultimoElemento){ // le sacaremo a los ultimosElementos la clase destaque
+            e.classList.remove('destaque')
+        }
+
+        // para usar el foreach es necesario trabajar con un array pero el for se puede usar en una htmlcolection 
+    </script>
+</body>
+</html>

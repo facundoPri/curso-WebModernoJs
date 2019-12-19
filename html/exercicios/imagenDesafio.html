@@ -1,0 +1,124 @@
+<div wm-slider>
+  <p>
+    <img
+      src="http://files.cod3r.com.br/curso-web/imagem1.jpg"
+      alt="Muro da Cidade"
+      width="513"
+      height="342"
+      title="Muro da Cidade por Tarso Bessa"
+    />
+  </p>
+
+  <p>
+    <img
+      src="http://files.cod3r.com.br/curso-web/imagem2.gif"
+      alt="Intro Cod3r"
+      height="342"
+    />
+  </p>
+
+  <p class="circular">
+    <img
+      src="http://files.cod3r.com.br/curso-web/imagem3.png"
+      alt="Rio de Janeiro"
+      height="342"
+    />
+  </p>
+
+  <p>
+    <picture>
+      <source
+        srcset="http://files.cod3r.com.br/curso-web/logo-larga.png"
+        media="(min-width: 600px)"
+      />
+      <img
+        src="http://files.cod3r.com.br/curso-web/logo-estreita.png"
+        alt="logo"
+      />
+    </picture>
+  </p>
+
+  <p class="cidade"></p>
+
+  <p class="texto">
+    <img
+      src="http://files.cod3r.com.br/curso-web/avatar.jpg"
+      alt="Avatar"
+      height="50"
+      align="left"
+    />
+    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Qui, laboriosam.
+    Lorem ipsum, dolor sit amet consectetur adipisicing elit. Quis aperiam
+    commodi asperiores repellat sed dolores! Vero, perspiciatis nisi architecto
+    numquam recusandae soluta neque placeat aut nulla natus ipsum dolor eum?
+    Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolor, nulla! Nam
+    fugit alias itaque hic.
+  </p>
+</div>
+
+<style>
+  p {
+    position: absolute;
+    display: none;
+    /* // ir activando una por una */
+  }
+  .circular {
+    width: 513px;
+    background-color: #444444;
+  }
+  .texto {
+    width: 400px;
+  }
+  .texto img {
+    margin-right: 10px;
+  }
+  .cidade {
+    width: 513px;
+    height: 342px;
+    background-image: url("http://files.cod3r.com.br/curso-web/imagem4.jpg");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: 200%;
+  }
+</style>
+
+<script>
+  function mover(elem, inicio, fim, passo, callback) {  //mi funcion mover se dedica a recibir un elemento, su pocicion inicial y final, los px que va a avancar cada determinado tiempo y una funcion callback y con todo esto se dedicara de hacer con que este elemento se mueva en una direccrion y cuando llegue la final avice que ya hizo su camino  
+    const novoInicio = inicio - passo; // esto esta para que gracias al settimeout cada vez que se ejecuta nuevamente esta funcion el nuevoInicio sea cada vez mas corto osea que se mueva la imagen
+    if (novoInicio >= fim) { // hace con que la funcion se ejecute hasta que la imagen no este mas
+      elem.style.left = novoInicio + "px"; // le atribuimos la nueva pocicion a mi imagen
+      setTimeout(() => mover(elem, novoInicio, fim, passo, callback), 7); // ejecutamos la funcion nuevamente pero con una nueva pocicion de inicio
+    } else { //cuando la imagen llegue al fin
+      callback(); // se ejecuta la callback que elegimos
+    }
+  }
+  function slider() { // esta funcion se encarga de obtener un array con todas las imagenes y pasarla a otra funcion //es como la funcion ignicion, ya que solo la usamos una vez en el codigo pero sin ella es imposible arrancar el slide
+    const elementos = document.querySelectorAll("[wm-slider]>p"); // esto me generara una node list
+    const slides = Array.from(elementos); // por eso aca la trasformamos en una array
+    exibirSlide(slides, slides[0]); // y le madamos a la siguinete funcion el array y el primer elemento de esta para hacer con que el sistema arranque
+  }
+
+  function exibirSlide(slides, slide) { // esta funcion se encarga de hacer con que el slide se muestre y determinar donde queda el inicio y el fin, para despues pasarlos a la funcion mover
+    slide.style.display = "block"; // hacemos vicible el slide
+
+    const inicio = innerWidth; // seteamos un inicio dependiendo del tamaño de mi pantalla
+    const fim = -slide.clientWidth; // y seteamos el final que es el tamaño de mi slide en negativo
+
+    slide.style.left = `${inicio}px`; // obiamente mi slide tiene que estar en la pocicion inicial para que se pueda mover bien asi que la ponemos ahi
+
+    mover(slide, inicio, fim, 5, () => { // le damos los valores a la funcion mover 
+      slide.style.display = "none";// y  como funcion callback apagamos el slide que recien llego a la pocicion final
+      exibirSlide(slides, getProximo(slides, slide)); // y arrancamos la funcion exibirSlide para hacer el loop pero con una diferencia y es que el slide actual ahora tiene que ser definido por una funcion especifica
+    });
+  }
+
+  function getProximo(lista, atual) { // esta funcion va a recibir el array con los slides y el slide actual
+    const i = lista.indexOf(atual) + 1; // definimos que i es el index del slide actual mas uno osea el proximo
+    return i < lista.length ? lista[i] : lista[0]; // pero verificamos que no nos pasemos de largo, osea que si el index pasa a ser mayor que el tamanho de mi array significa que es hora de volver al slide 0
+  }
+
+  slider();
+
+  // imag.style.display = 'block'
+  // mover(imag,1500,-600,5,()=> console.log('termino'))
+</script>

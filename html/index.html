@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Exercicios HTML</title>
+    <style>
+        #conteudo {
+            padding: 30px 0px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Exercicios HTML</h1>
+    </header>
+    <nav>
+        <a href wm-nav="exercicios/teste.html">00 - teste</a> |
+        <a href wm-nav="exercicios/texto1.html">01 - texto1</a> |
+        <a href wm-nav="exercicios/texto2.html">02 - texto2</a> |
+        <a href wm-nav="exercicios/listas.html">03 - listas</a> |
+        <a href wm-nav="exercicios/listaAninhadaMiSolucion.html">04 - lista Aninhada Mi Solucion</a> |
+        <a href wm-nav="exercicios/listaAninhadaSolucion.html">04.5 - lista Aninhada Solucion Profesor</a> |
+        <a href wm-nav="exercicios/links.html">05 - Links</a> |
+        <a href wm-nav="exercicios/tabela.html">06 - Tabela</a> |
+        <a href wm-nav="exercicios/form/form.html">07 - Formulario</a> |
+        <a href wm-nav="exercicios/imagen.html">08 - Imagen</a> |
+        <a href wm-nav="exercicios/imagenDesafio.html">08.5 - Imagen Desafio</a> |
+        <a href wm-nav="exercicios/videoMiSolucion.html">09 - Video Mi Solucion</a> |
+        <a href wm-nav="exercicios/videoSolucion.html">09.5 - Video Solucion</a> |
+        <a href wm-nav="exercicios/tagsNoVisuais.html">10 - Tags No Visuales</a>
+    </nav>
+    <section id="conteudo"></section>
+    <footer>
+        <br>
+        Curso de Web Moderno
+    </footer>
+    <script>
+        document.querySelectorAll('[wm-nav]').forEach(link => { //querySelectorAll se va fijar todos los a qe existan, osea todos los links, y cn un forEach vamos a hacer que se ejecute una callback para cada uno de ellos
+            const conteudo = document.getElementById('conteudo') // primero creamos una constantes y le atibuimos el espacio que tiene un id igual a conteudo
+
+            link.onclick = function(e){ // esta funcion va a estar esperando que alguien haga un click en el link que seleccionamos con querySelectorAll
+                e.preventDefault() // e es lo que ocurre cuando se hace un clic en el link, lo que hacermos aca es detener lo que ocurre por defecto con el clic(prevenir la accion padron)
+                fetch(link.getAttribute('wm-nav')) // pescamos lo que se encuentra adentro de link
+                    .then(resp => resp.text()) // lo trasformamos a un texto
+                    .then(html => conteudo.innerHTML = html) // y este texto lo pasamos adentro de conteudo con .innerHTML 
+            }
+        })
+    </script>
+</body>
+</html> 

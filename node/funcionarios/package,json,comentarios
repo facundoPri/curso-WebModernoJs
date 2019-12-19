@@ -1,0 +1,31 @@
+{
+  "name": "funcionarios",
+  "version": "1.0.0",
+  "description": "test",
+  "main": "funcionarios.js", // aca vamos a poner el archivo principar, osea el que se ejecutara cuando inicemos el programa
+  "scripts": {
+    "start": "nodemon", // como pedi para ejecutar nodemon al arrancar, por mas que no lo tenga en node.module ni en dependencia va a agarrar la version global y descargarla// otra cosa importantes es que start significa que ira a inicializar el programa buscando un archivo, como en el caso no lo especificamos este archivo es el "main" pero podriamos decirle nodemon ...js
+    "dev": "nodemon", // el de arriba ira a instalar nodemon si ya no lo esta, y dev ira a dispararlo asi se queda ejecutando
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "teste"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "axios": "^0.19.0"
+  }
+}
+
+
+// al poner npm i, npm leera todas las dependencia del .json para poder instalarlas
+// recreando la pasta node.module y por eso no es necesario mandar al repositorio la pasta node.modules
+
+// como mi comando para iniciar el programa es start podemos poner npm start e inmediatamente el programa arrancara
+// en el caso del dev, al no ser un comando padron del npm, al contrario del start, hay que inicializarlo usando npm run dev
+// dev y start hacen exactamente la misma cosa
+
+// los sript se pueden crar a voluntad pero se ejecutan con npm run ...
+// en la pagina de npm podemos ver todos los script previamente determinados

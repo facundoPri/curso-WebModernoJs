@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset='UTF-8'>
+    <title>Entendendo jQuery</title>
+    <link rel='stylesheet' href='css/estilo.css'>
+    <script src="js/jquery.js"></script>
+</head>
+
+<body class="conteudo exercicio">
+    <h1>Entendendo jQuery</h1>
+    <div>1</div>
+    <div>2</div>
+
+    <script>
+        $('div').hide(5000).show(5000).fadeOut(5000) //tambien se pueden encadenar llamadas// seleccionamos un conjunto de elemento, en el caso las dos divs y le damos el tiempo que tardara en esconderce
+        console.log($('div').get(0)) // podemos ver que no son elementos puros// estamos haciendo extenciones de estos elementos para acrecentar funcionalidades como show
+                // con el get agarramos el objeto que realmente agarro get(0) es el primero
+        console.log($.isEmptyObject({})) // una funcion utilitaria para fijarse si un objeto esta vacio o no
+        console.log($.isEmptyObject({none: null}))
+        console.log(jQuery.inArray(3,[1,2,3])) //jQuery y $ son la misma cosa// en este caso queremos saber si 3 se encuentra en el array como resultado podemos tener -1(que no esta) o su poscicion en el array(2)
+
+        // es muy facil extender las funcionalidades del jQuery
+        $.fn.fundoVerde = function(){
+            this.css('background-color', 'green') // usamos una funcion ya existente llamada css y le pasamos lo que queremos modificar y el valor 
+            return this // devolvemos el this asi es posible la encadenacion de funciones
+        }
+
+        $('body').fundoVerde().fadeOut(1000)
+    </script>
+</body>

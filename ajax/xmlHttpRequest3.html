@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset='UTF-8'>
+    <title>XMLHttpRequest #03</title>
+    <link rel='stylesheet' href='css/estilo.css'>
+</head>
+
+<body class="conteudo exercicio">
+    <h1>Estados</h1>
+
+    <script>
+        function ajax(config) {
+            const xhr = new XMLHttpRequest()
+            xhr.open(config.metodo, config.url, true)
+
+            xhr.onreadystatechange = e => {
+                if (xhr.readyState === 4) { // fijarse los el significado de los states en w3escole// este significa que la pagina haya terminado de cargar y la resppuesta esta lista
+                    if (xhr.status === 200) {
+                        config.sucesso(xhr.responseXML) // prestar atencion que en este caso estamos tratando con responde XML mientras en el otro caso era apenas un response// de modo que me lo pasa en un estilo de dom, de esta forma la manipulacion de su info es muy parecida a la del dom
+                    } else if (xhr.status >= 400) {
+                        config.erro({
+                            codigo: xhr.status,
+                            text: xhr.statusText
+                        })
+                    }
+
+                }
+            }
+            xhr.send()
+        }
+        ajax({
+            url: "dados/estados.xml",
+            metodo: "get",
+            sucesso(resposta) {
+                const estados = resposta.getElementsByTagName('estado')
+                const itens = Array.from(estados).reduce(
+                    (html, estado) => html + `<li>${estado.attributes.nome.value}</li>`, ''
+                )
+                document.body.insertAdjacentHTML('beforeend', `<ul>${itens}</ul>`)
+            },
+            erro(e) {
+                const mesg = document.createTextNode(`${e.codigo}:${e.texto}`)
+                document.body.appendChild(msg)
+            }
+        })
+    </script>
+</body>

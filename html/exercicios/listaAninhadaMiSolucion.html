@@ -1,0 +1,45 @@
+<h1 onclick="desaparecer('cajaMayor')">Projeto</h1>
+<ul class="tree" id="cajaMayor">
+    <li >
+        <a onclick="desaparecer('cajaBackend')">backend</a> 
+        <ul id="cajaBackend">
+            <li >
+                <a onclick="desaparecer('cajaApp')">app</a>
+                <ul id="cajaApp">
+                    <li>produto.js</li>
+                    <li>usuario.js</li>
+                    <li>venda.js</li>
+                </ul>
+            </li>
+            <li >
+                <a onclick="desaparecer('cajaConfig')">config</a> 
+                <ul id="cajaConfig">
+                    <li>banco.js</li>
+                    <li>rotas.js</li>
+                    <li>servidor.js</li>
+                </ul>
+            </li>
+        </ul>
+    </li>
+    <li >
+        <a onclick="desaparecer('cajaFrontend')">frontend</a> 
+        <ul id="cajaFrontend">
+            <li >
+                <a onclick="desaparecer('cajaPublica')">public</a> 
+                <ul id="cajaPublica">
+                    <li>app.css</li>
+                    <li>app.js</li>
+                    <li>index.html</li>
+                </ul>
+            </li>
+        </ul>
+    </li>
+</ul>
+
+<link rel="stylesheet" href="http://files.cod3r.com.br/curso-web/tree.css">
+<script>
+    function desaparecer(id){
+        let lista = document.getElementById(id)
+        lista.innerText = null
+    }
+</script>

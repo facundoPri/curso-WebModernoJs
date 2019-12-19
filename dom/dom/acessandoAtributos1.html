@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset='UTF-8'>
+    <title>Acessando Atributos #01</title>
+    <link rel='stylesheet' href='css/estilo.css'>
+</head>
+
+<body class='conteudo exercicio'>
+    <div>
+        <a href='https://www.cod3r.com.br'>Cod3r</a>
+    </div>
+    <div id='primeiro'>
+        <img src='http://files.cod3r.com.br/curso-web/logo-estreita.png' alt='logo'>
+    </div>
+    <script>
+        const img = document.querySelector('img')
+        console.log('getAttribute', img.getAttribute('src'))// el getAttribute al principio solo esta ahi para adicionar claresa a la consola que tendra una buena cantidad de comandos
+        console.log('src', img.src)
+        console.log('["src"]',img['src'])
+        console.log('alt',img.alt)
+
+        console.log('Elemento "img"........')
+        console.log('NodeType', img.nodeType) // nodetype 1 es del tipo elemento buscar en google lo que significa los nodetype
+        console.log('NodeName', img.nodeName) // el nombre del elemento en el caso img
+
+        const src = img.getAttribute('src')
+        console.log('Atrubuto "src"..........')
+        console.log('NodeType', src.nodeType)
+        console.log('NodeName', src.nodeName)
+        console.log('NodeValue', src.nodeValue)
+
+        const link = document.querySelector('a')
+        console.log('Elemento "a" ...............')
+        console.log('href', link.href)
+        console.log('FirtChild.nodeType', link.firstChild.nodeType)
+        link.firstChild.nodeValue = 'Novo Texto' // podemos modiicar el valor mediante nodeValue
+        link.innerHTML = 'Novo Texto  2' // esta es la forma mas comun de hacerlo igual pero las dos son posibles
+    </script>
+</body>
+
+</html>

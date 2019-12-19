@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset='UTF-8'>
+    <title>Acessando Atributos #03</title>
+    <link rel='stylesheet' href='css/estilo.css'>
+</head>
+
+<body class='conteudo exercicio'>
+    <div>
+        <ul id="compras" destino='escritório' data-urgencia="5">
+            <li>Café</li>
+            <li>Água</li>
+            <li>Copo Descartável</li>
+        </ul>
+    </div>
+    <script>
+        const lista = document.querySelector('#compras')
+
+        //somente leitura
+        console.log(lista.attributes)
+        console.log(lista.attributes[0])
+        console.log(lista.attributes.id)
+        console.log(lista.attributes[1])
+        console.log(lista.attributes.destino)
+        //console.log(lista.attributes.data-urgencia) // esto no puede servir ya que el - se reconoce como un menos
+        console.log(lista.attributes[2])
+        console.log(lista.attributes['data-urgencia']) // esta es la forma correcta de acceder a atributo con data-
+        lista.attributes.destino = 'casa'
+        console.log(lista.attributes.destino) // por mas que esto imprima casa en el html el atributo destino no fue modificado 
+
+        
+
+    </script>
+</body>
+
+</html>

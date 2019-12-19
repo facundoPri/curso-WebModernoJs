@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>Selecionar Elementos #04</title>
+    <link rel="stylesheet" href="css/estilo.css">
+</head>
+
+<body class="conteudo exercicio">
+    <div>
+        <p>Início</p>
+    </div>
+    <div>
+        <ul>
+            <li>Pedro</li>
+            <li>Ana</li>
+            <li>Bia</li>
+        </ul>
+    </div>
+    <div>
+        <p>Fim</p>
+    </div>
+    <script>
+        function log(){
+            console.log(this)
+        }
+
+        // le atribuimos a algunos prototipes la funcion log asi queda mas facil de hacer console.log
+        HTMLCollection.prototype.log = log
+        HTMLElement.prototype.log = log
+        NodeList.prototype.log = log
+        Node.prototype.log = log
+
+        const lista = document.querySelector('div ul')
+        lista.parentNode.log()
+        lista.childNodes.log() // un efecto colateral del childNodes es que toma en cuenta los espacios en el html, de modo que me pone como que hay un texto entre casa una de las li
+         
+        const primeiro = lista.firstChild
+        primeiro.log() // mi primer elemento es un elemento textual
+        primeiro.nextSibling.log()
+
+        const ultimo = lista.lastChild
+        ultimo.log()
+        ultimo.previousSibling.log()
+
+        lista.children.log() // viene sin los elementos textuales pero en una htmlcolection
+        lista.firstElementChild.log() // este sera pedro 
+        lista.lastElementChild.log()
+        lista.parentNode.previousElementSibling.log()// me va a agarra el elemento hermano que esta antes que en el caso es la div que dice inicio
+        lista.parentNode.nextElementSibling.log()
+     
+        document.querySelectorAll('div ul il').log()// normalmente se recomienda agarrar lo que quieras usar y trabajar con eso
+    </script>
+</body>
+
+</html>

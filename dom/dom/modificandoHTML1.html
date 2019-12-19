@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset='UTF-8'>
+    <title>Modificando HTML #01</title>
+    <link rel='stylesheet' href='css/estilo.css'>
+</head>
+
+<body class='conteudo exercicio'>
+    <script>
+        const body = document.querySelector('body')
+
+        const div1 = document.createElement('div')
+        div1.classList.add('destaque')
+        div1.innerHTML = 'Primeiro'
+
+        const div2 = document.createElement('div')
+        div2.setAttribute('wm-atributo', 'valor')
+        div2.innerHTML = 'Segundo'
+
+        const p = document.createElement('p')
+        p.innerHTML = 'Terceiro'
+        const div3 = document.createElement('div')
+        div3.appendChild(p) // esta es una forma de meterle un hijo en en el utlimo lugar a su padre
+
+        body.appendChild(div1) // de esta forma le metemos las divs y sus hijos al body
+        body.appendChild(div2)
+        body.appendChild(div3) 
+
+        const text = document.createTextNode('Antes...')
+        div3.insertBefore(text, div3.childNodes[0]) //como inserir un elemnto antes de otro, el primer elemento antes del segundo//ponemos primero el elemento que queremos incerir y despues el elemento que viene que vendra despues de este
+
+        const div4 = div3.cloneNode(true) // lo que ponemos entre parametros es el deep y recibe un boolean, si le ponemos true sera una copia profunda osea, con los hijos y todo
+        body.appendChild(div4)
+        // body.removeChild(div3) 
+    </script>
+</body>
+
+</html>

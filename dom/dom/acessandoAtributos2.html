@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset='UTF-8'>
+    <title>Acessando Atributos #02</title>
+    <link rel='stylesheet' href='css/estilo.css'>
+</head>
+
+<body class='conteudo exercicio'>
+    <div>
+        <label for="compras">Compras</label>
+        <ul id="compras" destino='escritório' data-urgencia="5">
+            <li>Café</li>
+            <li>Água</li>
+            <li>Copo Descartável</li>
+        </ul>
+    </div>
+    <script>
+        const lista = document.querySelector('div ul[destino="escritório"]') // seria mucho mas inteligente usar el id compras
+        console.log('Elemento "ul"..................')
+        console.log('childNodes', lista.childNodes)
+        console.log('destino',lista.destino) // sera ignorado ya que este es un atributo creado por nosotros mismos
+        console.log('getAttribute', lista.getAttribute('destino')) // ahorasi
+        console.log('hasAttribute', lista.hasAttribute('destino')) // tiene el atributo?
+        lista.setAttribute('destino', 'empresa') //el destino paso de ser escritorio a ser empresa
+        lista.setAttribute('status', 'aberto') // se puese alterar un atributo o crear uno nuevo, primero el nombre y despues su valor
+        lista.removeAttribute('destino') // de esta forma podemos eliminar un atributo
+        console.log(lista.dataset) // me dice todos los atributos que empiecen con data- // tiene un tratamiendo un poco distinto
+        console.log(lista.dataset.urgencia)
+        lista.dataset.urgencia = 4
+        console.log(lista.getAttribute('data-urgencia'))
+
+        //cuidados
+        const label = document.querySelector('label')
+        console.log(label.for)// no me va a acceder nada y que for hace parte del lenguaje recervado de js
+        console.log(label.htmlFor) //de esta forma si podemos accederlo
+        console.log(label.getAttribute('for'))// esta es otra forma de accederlo
+    </script>
+</body>
+
+</html>

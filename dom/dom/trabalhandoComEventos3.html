@@ -1,0 +1,68 @@
+</html>
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset='UTF-8'>
+    <title>Trabalhando com Eventos #03</title>
+    <style>
+        body {
+            margin: 0;
+            display: flex;
+        }
+        
+        .esquerda {
+            height: 100vh;
+            width: 50%;
+            background-color: coral;
+        }
+        
+        .direita {
+            height: 100vh;
+            width: 50%;
+            background-color: cornflowerblue;
+        }
+        
+        .item {
+            border: solid 5px black;
+            background-color: darkgrey;
+            color: white;
+            height: 100px;
+            font-size: 40px;
+            margin: 10px;
+            vertical-align: middle;
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="esquerda" wm-dropzone>
+        <div class="item">1</div>
+        <div class="item">2</div>
+        <div class="item">3</div>
+        <div class="item">4</div>
+    </div>
+    <div class="direita" wm-dropzone></div>
+    <script>
+        const items = document.querySelectorAll('[wm-dropzone] .item') // en este caso seleccionamos los itenes que se encuantran adentro de lass dropzones
+        items.forEach((item, index)=>{ // y para cada item
+            item.draggable = true //le permitimos que sea arrastrable
+            item.id = item.id || `draggable-item-${index}` // si ya no tiene un id le damos uno 
+            item.ondragstart = e => // cuando empecemos a arrastras el elemento
+                e.dataTransfer.setData('item-id', e.target.id)  // este es un atributo que creamos //vamos a setear en el dataTrasfer del evento el id del item
+        })
+        const dropzones = document.querySelectorAll('[wm-dropzone]') // selecionamos las zonas donde se pueden arraastrar los elementos 
+        dropzones.forEach( dropzone => {  // para aca una de esas dropzones vamos modificar el comportamiento de algunos eventos
+            dropzone.ondragover = e => e.preventDefault() // queremos cortar con el evento por padron que ocurre cuando soltamos el elemento arrastrado, si no hacemos esto cuando se suelte el elemento se termirminara la accion y no se ejecutara el proximo evento
+            dropzone.ondrop = function(e) { // esta funcion se ejecuta cuando ocurre un drop
+                const id = e.dataTransfer.getData('item-id') // agarramos el id del elemento arrastrado
+                const item = document.getElementById(id) // y ahora agarramos el elemento en si mediante su id
+                // e.target.appendChild(item) // aca estamos haciendo un appendChild arriba del elemento en que soltamos, lo que incluy a las divs en si
+                dropzone.appendChild(item) // de esta forma se evita lo anterior
+            }
+        })
+    </script>
+</body>
+
+</html>
