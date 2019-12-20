@@ -20,6 +20,36 @@
     <input type="text" placeholder="Cor de Background">
 
     <script>
-        // ...
+        function mostrarPosicaoMouse(e){
+            $('#posicao').html(`x: ${e.clientX} y: ${e.clientY}`) // esta funcion recive un evento que en el caso sera el movimiento del mouse y de este evento quiero extraer la pocicion del mouse
+        }
+
+        $('body').on('mousemove', mostrarPosicaoMouse) // el on se usa para escribir el evento que disparara una funcion// etonce ponemos donde se verificara si el evento ocurre o no , en el caso en el body , despues adentro del on ponemos el evento en si que queremos esta escuchando y por ultimo la funcion que lanzara este mismo
+        
+        $('#posicao').mouseover(e => { // cuando el mouse pase por arriba de la div posicao 
+            $('body').off('mousemove', mostrarPosicaoMouse) // quiero que se deje de mandar la funcion mostrarPosicaoMouse cuando se mueva el mouse arriba del body
+        })
+
+        $('#posicao').mouseleave(e => { // cuando el mouse salga de arriba de posicao 
+            $('body').mousemove(mostrarPosicaoMouse) //esta es otra forma de hacer lo mismo que con el on// quiero que se vuelva a ejecutar mi funcion al movimiento del mouse
+        })
+
+        let cliques = 0
+        $('body').click(e =>{
+            $('#cliques').html(`Cliques: ${++cliques}`)
+        })
+
+        const backgroundOriginal = $('body').css('background-color')
+
+        $('input').keyup(function (e) { // uso una function en ves de una arrow function por que sino al usar el this me tomaria el valor del window y en el caso yo quiero el valor de quien llamo la funcion
+            const valor = $(this).val()
+            // $('body').css('background-color', valor) // en el caso es mejor hacer lo de abajo asi tenemos alguna forma de validar lo que se pone adentro de mi input de la misma forma qu ecuando ya no hay algo que sea un color el fondo vuelva a ser el predeterminado
+            if(valor.match(/#[\da-fA-F]{3,6}/)){// match se va a encargar de ver si lo que pusimos esta adentro de los parametros, en el caso pusimos que tiene que ser un # segudio de 3 o 6 d(dijitos) que vayan dela letra a a la f y de la A a la F
+                $('body').css('background-color', valor)// si esto ocurre se ejecutara esto, para cambiar lo de abajo
+            } else{// mientras no ocurra el color de background sera el original
+                $('body').css('background-color', backgroundOriginal)
+            }
+        })
+        
     </script>
 </body>

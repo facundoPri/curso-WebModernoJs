@@ -28,6 +28,28 @@
     <div>Animar!</div>
 
     <script>
-        // ...
+        function alterarLargura(valor, duracao, callback) {  // la funcion recive un valor, la duracion que tardara para modificar algo en relacion a este calor y una funcion que sera ejecutada una vez termine todo
+            $('div').animate({ width: `+=${valor}` }, duracao //en animate decimos que al width se le acrecentara el valor en una duracion 
+                , callback) //y despues se llama la callback
+        }
+        function moverDiagonal(valor, duracao, callback) { 
+            $('div').animate({ top: `+=${valor}`, left: `+=${valor}` } // este valor se le sumara arriba y a la izquierda
+                , duracao, callback) 
+        }
+        function girar(valor, duracao, callback) {
+            $('div').animate({ transform: `+=${valor}` }, { // le pasamos un valor a trasformacion
+                step: function (valor) { // step se llamara 
+                    $(this).css('transform', `rotate(${valor}deg)`)// y modificara el css girandolo gracias al rotate
+                },
+                duration: duracao // este es el timepo que tardara // acordemosnos que el segundo valor es un objeto
+            }, 'linear', callback) // y por ultimo pasamos un valor que diga que la funcion animate es de forma linear y llamamos la callback
+        }
+        alterarLargura(300, 100, () => { // aca es cuando llamamos las funcionas, poniedo el valor, la duracion de la animacion y por ultimo pasando la callback
+            alterarLargura(-300, 'slow', () => {
+                moverDiagonal(300, 600, () => {
+                    girar(3300, 3000)
+                })
+            })
+        })
     </script>
 </body>

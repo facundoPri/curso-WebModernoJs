@@ -21,6 +21,23 @@
     <input type="text" placeholder="Digite e Selecione">
     <div id="resultado2">?</div>
     <script>
-        // ...
+        const alterarDestaque = () => $('#div1').toggleClass('destaque')
+        // $('#div1').on('mouseenter mouseleave', alterarDetaque)
+        $('#div1').hover(alterarDestaque, alterarDestaque)
+
+        $('#div1').one('mouseenter', e => alert('Aviso IMPORTANTE: Obrigado'))// esto se ejecutara apenas la primera vez que se detecte el evento en cuestion
+        $('#div1').dblclick(e => $('#div1').fadeOut(1000).fadeIn(1000))// doble click
+
+        $(window).resize(function (e) { // se fijara cuando se le cambia el tamanho a la windows y se ejecuta la siguiente funcion
+            const l = $(window).width()
+            const a = $(window).height()
+            $('#resultado1').html(`Largura: ${l} e Altura: ${a}`) // por ultimo mostramos todo
+        })
+
+        $('input').select(e => { // cuando algo adentro del input es seleccionado quiero que se ejecute determinada funcion
+            const inicio = e.target.selectionStart
+            const fin = e.target.selectionEnd
+            $('#resultado2').html(e.target.value.substring(inicio, fin))// vamos a mostrar una substrig que arranque en ele inicio y termine en el fin
+        })
     </script>
 </body>

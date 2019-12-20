@@ -22,6 +22,26 @@
     </div>
 
     <script>
-        // ...
+        // const $ = { nome: 'Não é o Jquery' } //Simulo lo que algunos frameworks pueden hacer que es utilizar el $ y generear un error querer usar jQuery// si llamo en el escopo global a $ ma daria un error, por eso ahora vamoos a hacer un ejemplo de como preveir eso
+
+        (function ($) {
+            $.fn.interpretar = function () {
+                const retirarChaves = s => s.substring(2, s.length - 2)// de esta forma vamos a retirar los dos primeros caracteres y los dos ultimos osea las doble chaves
+                const conteudo = $(this).html() // como esta funcion tiene que ser llamada el this se refiere a quien la llame// en el caso se refiere a la div que la llamo
+                const expressoesComChaves = conteudo.match(/\{\{.+\}\}/g) //recordar que al hacer el match me da a devolver valores con las chaves// el punto significa que puede ser cualquier caracter, el mas que puede ser as de un caracter y como las chaves hace parte del lenguaje de rest lo ponemos mos entre \\ // como ponemos la g significa que es un global de modo que me va a devolver un array de varios matchs
+                const expressoes = expressoesComChaves.map(retirarChaves)// recibe cada uno de los valores del array y me devuelve el valor con las chaves retiradas
+                const resultados = expressoes.map(e => eval(e)) // aca generamos un array con los resultados de cada una de las cosas que estaba adentro de las chaves
+
+                let conteudoFinal = conteudo // agarro todo el contenido de quien llamo a mi div
+                for (let i = 0; i < expressoesComChaves.length; i++) {
+                    conteudoFinal = conteudoFinal.replace( // remplacamos lo lugares donde se encuantran las expreciones con chaves y las remplazamos por el resultado que tenga el mismo indice
+                        expressoesComChaves[i], resultados[i]
+                    )
+                }
+                $(this).html(conteudoFinal) // por ultimo remplazamos el html por el contenudo final
+            }
+            return this
+        })(jQuery)// hacemos una funcion auto envocable // le pasamos como paraetro a jQuery
+        $('div').interpretar() // quien va a llamar la funcion interpretar sera la div// osea que el this siempre se refiere a ella
     </script>
 </body>
